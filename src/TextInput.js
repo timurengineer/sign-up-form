@@ -16,7 +16,7 @@ const input = {
   backgroundColor: '#ffffff',
   outline: 'none',
   color: 'rgb(0,0,0,.87)',
-  borderRadius: '0',
+  borderRadius: '3px',
 };
 
 const labelStyle = {
@@ -63,10 +63,10 @@ const TextInput = React.forwardRef(
           height: small ? '40px' : '50px',
           border: errorMessage ? '2px solid #B00020' : 'solid 1px rgb(0,0,0,.5)',
           ':focus': {
-            border: errorMessage ? '2px solid #B00020' : '2px solid #697eff',
+            border: errorMessage ? '2px solid #B00020' : '2px solid #036',
           },
           ':focus ~ label': {
-            color: errorMessage ? '#B00020' : '#697eff',
+            color: errorMessage ? '#B00020' : '#036',
           },
         }, className)}
         {...other}
