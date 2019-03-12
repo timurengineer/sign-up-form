@@ -29,6 +29,7 @@ export const button = {
 
 const Button = ({ children, className, ...other }) => (
   <button
+    type="submit"
     className={css(button, className)}
     {...other}
   >
@@ -44,6 +45,6 @@ Button.propTypes = {
 Button.defaultProps = {
   children: <span>Submit</span>,
   className: '',
-}
+};
 
 export default Button;

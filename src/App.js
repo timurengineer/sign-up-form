@@ -4,7 +4,7 @@ import './App.css';
 import TextInput from './TextInput';
 import Button from './Button';
 
-const validators = [
+const passwordValidators = [
   {
     test: value => value.length > 7,
     message: 'Too short, must be 8 to 20 characters',
@@ -23,49 +23,49 @@ const validators = [
   },
 ];
 
-export const hasErrors = (password, validators) => {
-  return validators.reduce((acc, item) => {
+export const hasErrors = (password, validators) => (
+  validators.reduce((acc, item) => {
     if (acc) {
       return acc;
     }
-    return item.test(password) ? null : item.message
-  }, null);
-}
+    return item.test(password) ? null : item.message;
+  }, null)
+);
 
 const title = {
   textAlign: 'center',
-}
+};
 
 const form = {
   padding: '0 12px',
   marginLeft: 'auto',
   marginRight: 'auto',
   maxWidth: '500px',
-}
+};
 
 const submitButton = {
   margin: '12px 0 0',
-}
+};
 
 const apiCall = (endpoint, options) => {
   const opts = {
     headers: {
       'Content-Type': 'application/json',
-      ...options.headers
+      ...options.headers,
     },
-    ...options
-  }
+    ...options,
+  };
 
   return fetch(endpoint, opts)
     .then(response => response.json());
-}
+};
 
-const createUser = (body) => (
+const createUser = body => (
   apiCall('/users', {
     method: 'POST',
     body: JSON.stringify(body),
   })
-)
+);
 
 const App = () => {
   const [submitClicked, setSubmitClicked] = useState(false);
@@ -77,7 +77,7 @@ const App = () => {
     test: value => value.length > 0,
     message: 'Entert a username',
   }]);
-  const passwordError = hasErrors(password, validators);
+  const passwordError = hasErrors(password, passwordValidators);
   const confirmError = hasErrors(confirm, [{
     test: value => value === password,
     message: 'Does not match',
@@ -95,7 +95,7 @@ const App = () => {
     setSubmitClicked(true);
 
     if (usernameError || passwordError || confirmError) {
-      return;
+      return null;
     }
 
     return createUser({ username, password })
@@ -133,15 +133,12 @@ const App = () => {
           onChange={event => setConfirm(event.target.value)}
           errorMessage={submitClicked && confirmError}
         />
-        <Button
-          type="submit"
-          className={css(submitButton)}
-        >
+        <Button className={css(submitButton)}>
           Continue
         </Button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default App;
