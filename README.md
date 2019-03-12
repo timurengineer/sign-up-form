@@ -7,7 +7,7 @@
 ## Quick Start
 
 ```
-git clone [link to the repo]
+git clone https://github.com/timurengineer/sign-up-form.git
 cd sign-up-form
 npm install
 npm start
