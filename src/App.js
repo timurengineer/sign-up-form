@@ -53,9 +53,24 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
 
+  const usernameError = hasErrors(username, [{
+    test: value => value.length > 0,
+    message: 'Entert a username',
+  }]);
+  const passwordError = hasErrors(password, validators);
+  const confirmError = hasErrors(confirm, [{
+    test: value => value === password,
+    message: 'Does not match',
+  }]);
+
   const onFormSubmit = (event) => {
     event.preventDefault()
     setSubmitClicked(true);
+
+    if (usernameError || passwordError || confirmError) {
+      return;
+    }
+
     console.log('submit!')
   };
 
@@ -70,10 +85,7 @@ const App = () => {
           value={username}
           onChange={event => setUsername(event.target.value)}
           autoFocus
-          errorMessage={submitClicked && hasErrors(username, [{
-            test: value => value.length > 0,
-            message: 'Entert a username',
-          }])}
+          errorMessage={submitClicked && usernameError}
         />
         <TextInput
           type="password"
@@ -82,7 +94,7 @@ const App = () => {
           label="Password"
           value={password}
           onChange={event => setPassword(event.target.value)}
-          errorMessage={submitClicked && hasErrors(password, validators)}
+          errorMessage={submitClicked && passwordError}
         />
         <TextInput
           type="password"
@@ -91,10 +103,7 @@ const App = () => {
           label="Confirm Password"
           value={confirm}
           onChange={event => setConfirm(event.target.value)}
-          errorMessage={submitClicked && hasErrors(confirm, [{
-            test: value => value === password,
-            message: 'Does not match',
-          }])}
+          errorMessage={submitClicked && confirmError}
         />
         <Button
           type="submit"
