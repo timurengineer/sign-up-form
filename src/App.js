@@ -48,12 +48,14 @@ const submitButton = {
 }
 
 const App = () => {
+  const [submitClicked, setSubmitClicked] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
 
   const onFormSubmit = (event) => {
     event.preventDefault()
+    setSubmitClicked(true);
     console.log('submit!')
   };
 
@@ -76,7 +78,7 @@ const App = () => {
           label="Password"
           value={password}
           onChange={event => setPassword(event.target.value)}
-          errorMessage={hasErrors(password, validators)}
+          errorMessage={submitClicked && hasErrors(password, validators)}
         />
         <TextInput
           type="password"
@@ -85,7 +87,7 @@ const App = () => {
           label="Confirm Password"
           value={confirm}
           onChange={event => setConfirm(event.target.value)}
-          errorMessage={hasErrors(confirm, [{
+          errorMessage={submitClicked && hasErrors(confirm, [{
             test: value => value === password,
             message: 'Does not match'
           }])}
