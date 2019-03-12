@@ -6,7 +6,7 @@ export const button = {
   width: '100%',
   lineHeight: 2.9,
   textAlign: 'center',
-  borderRadius: '0',
+  borderRadius: '3px',
   backgroundColor: '#036',
   color: '#FFFFFF',
   border: '1px solid #036',
