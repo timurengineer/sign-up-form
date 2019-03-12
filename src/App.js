@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { css } from 'emotion';
 import './App.css';
 import TextInput from './TextInput';
+import Button from './Button';
 
 const title = {
   textAlign: 'center',
@@ -12,6 +13,10 @@ const form = {
   marginLeft: 'auto',
   marginRight: 'auto',
   maxWidth: '500px',
+}
+
+const submitButton = {
+  margin: '12px 0 0',
 }
 
 const App = () => {
@@ -52,6 +57,12 @@ const App = () => {
           value={confirm}
           onChange={event => setConfirm(event.target.value)}
         />
+        <Button
+          type="submit"
+          className={css(submitButton)}
+        >
+          Continue
+        </Button>
       </form>
     </div>
   )
