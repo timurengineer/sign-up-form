@@ -7,9 +7,9 @@ export const button = {
   lineHeight: 2.9,
   textAlign: 'center',
   borderRadius: '0',
-  backgroundColor: '#697EFF',
+  backgroundColor: '#036',
   color: '#FFFFFF',
-  border: '1px solid #697EFF',
+  border: '1px solid #036',
   outline: 'none',
   cursor: 'pointer',
   fontFamily: 'inherit',
@@ -17,8 +17,8 @@ export const button = {
   letterSpacing: '0.8px',
   transition: '.2s ease-in-out',
   ':hover': {
-    backgroundColor: '#6073E8',
-    border: 'solid 1px #6073E8',
+    backgroundColor: '#00264d',
+    border: 'solid 1px #00264d',
   },
   ':disabled': {
     backgroundColor: 'rgba(0, 0, 0, .12)',
