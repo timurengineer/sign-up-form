@@ -5,21 +5,13 @@ import TextInput from './TextInput';
 import Button from './Button';
 
 
-export const hasErrors = (password, config) => {
-  const {
-    minLength,
-    maxLength,
-  } = config;
-
-  if (password.length < minLength) {
-    return `Must be at least ${minLength} characters`
-  }
-
-  if (password.length > maxLength) {
-    return `Must be at most ${maxLength} characters`
-  }
-
-  return null;
+export const hasErrors = (password, validators) => {
+  return validators.reduce((acc, item) => {
+    if (acc) {
+      return acc;
+    }
+    return item.test(password) ? null : item.message
+  }, null);
 }
 
 const title = {

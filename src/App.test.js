@@ -9,18 +9,42 @@ it('renders without crashing', () => {
 });
 
 describe('hasErrors()', () => {
-  it('returns proper message if length is less than minLength', () => {
-    expect(hasErrors('foo', { minLength: 8 }))
-      .toEqual('Must be at least 8 characters')
+  it('returns message if validator test does not pass', () => {
+    const validator = {
+      test: value => value.length > 8,
+      message: 'Must be at least 8 characters',
+    }
+    expect(hasErrors('foo', [
+      validator
+    ])).toEqual('Must be at least 8 characters')
   })
 
-  it('returns proper message if length is more than maxLength', () => {
-    expect(hasErrors('foobarbaz', { maxLength: 8 }))
-      .toEqual('Must be at most 8 characters')
+  it('returns null if all validator tests pass', () => {
+    expect(hasErrors('foobarbaz', [
+      {
+        test: value => value.length > 8,
+        message: 'Too short',
+      },
+      {
+        test: value => value.length < 10,
+        message: 'Too long',
+      }
+    ])).toEqual(null)
   })
 
-  it('returns null if length is valid', () => {
-    expect(hasErrors('foobarbaz', { minLength: 8, maxLength: 10 }))
-      .toEqual(null)
+  it('returns only the first failed test', () => {
+    const validators = [
+      {
+        test: value => value.length > 7,
+        message: 'Too short',
+      },
+      {
+        test: value => value.length < 9,
+        message: 'Too long',
+      }
+    ]
+
+    expect(hasErrors('foobar', validators)).toEqual('Too short')
+    expect(hasErrors('foobarbaz', validators)).toEqual('Too long')
   })
 })
