@@ -1,0 +1,24 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-irregular-whitespace": "error",
+    "no-trailing-spaces": "error",
+    "no-unused-vars": "error",
+    "react/jsx-filename-extension": "off",
+    "jsx-a11y/label-has-for": "off"
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "FormData": true,
+    "FileReader": true,
+    "Blob": true,
+    "navigator": true,
+    "fetch": true
+  },
+  "env": {
+    "jest": true
+  },
+  "parser": "babel-eslint"
+}
