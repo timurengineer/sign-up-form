@@ -70,6 +70,10 @@ const App = () => {
           value={username}
           onChange={event => setUsername(event.target.value)}
           autoFocus
+          errorMessage={submitClicked && hasErrors(username, [{
+            test: value => value.length > 0,
+            message: 'Entert a username',
+          }])}
         />
         <TextInput
           type="password"
@@ -89,7 +93,7 @@ const App = () => {
           onChange={event => setConfirm(event.target.value)}
           errorMessage={submitClicked && hasErrors(confirm, [{
             test: value => value === password,
-            message: 'Does not match'
+            message: 'Does not match',
           }])}
         />
         <Button
