@@ -85,6 +85,10 @@ const App = () => {
           label="Confirm Password"
           value={confirm}
           onChange={event => setConfirm(event.target.value)}
+          errorMessage={hasErrors(confirm, [{
+            test: value => value === password,
+            message: 'Does not match'
+          }])}
         />
         <Button
           type="submit"
