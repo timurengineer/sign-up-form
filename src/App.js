@@ -47,6 +47,26 @@ const submitButton = {
   margin: '12px 0 0',
 }
 
+const apiCall = (endpoint, options) => {
+  const opts = {
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers
+    },
+    ...options
+  }
+
+  return fetch(endpoint, opts)
+    .then(response => response.json());
+}
+
+const createUser = (body) => (
+  apiCall('/users', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+)
+
 const App = () => {
   const [submitClicked, setSubmitClicked] = useState(false);
   const [username, setUsername] = useState('');
@@ -63,15 +83,23 @@ const App = () => {
     message: 'Does not match',
   }]);
 
+  const resetState = () => {
+    setSubmitClicked(false);
+    setUsername('');
+    setPassword('');
+    setConfirm('');
+  };
+
   const onFormSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setSubmitClicked(true);
 
     if (usernameError || passwordError || confirmError) {
       return;
     }
 
-    console.log('submit!')
+    return createUser({ username, password })
+      .then(resetState);
   };
 
   return (
