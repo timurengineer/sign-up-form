@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { css } from 'emotion';
+
 import './App.css';
+import { createUser, validate } from './api';
+
 import TextInput from './TextInput';
 import Button from './Button';
 
@@ -23,15 +26,6 @@ const passwordValidators = [
   },
 ];
 
-export const hasErrors = (password, validators) => (
-  validators.reduce((acc, item) => {
-    if (acc) {
-      return acc;
-    }
-    return item.test(password) ? null : item.message;
-  }, null)
-);
-
 const title = {
   textAlign: 'center',
 };
@@ -47,43 +41,6 @@ const submitButton = {
   margin: '12px 0 0',
 };
 
-const rejectApiError = (response) => {
-  if (response.status === 400) {
-    return response.json()
-      .then((body) => {
-        const error = new Error(body.message && body.message);
-
-        error.name = 'ApiError';
-        error.body = body;
-
-        return Promise.reject(error);
-      })
-  }
-
-  return Promise.reject(new Error('Unknown API error'));
-}
-
-const apiCall = (endpoint, options) => {
-  const opts = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-    ...options,
-  };
-
-  return fetch(endpoint, opts)
-    .then((response) => response.ok ? response : rejectApiError(response))
-    .then(response => response.json());
-};
-
-const createUser = body => (
-  apiCall('/users', {
-    method: 'POST',
-    body: JSON.stringify(body),
-  })
-);
-
 const App = () => {
   const [submitClicked, setSubmitClicked] = useState(false);
   const [username, setUsername] = useState('');
@@ -91,12 +48,12 @@ const App = () => {
   const [confirm, setConfirm] = useState('');
   const [usernameApiError, setUsernameApiError] = useState('');
 
-  const usernameError = usernameApiError || hasErrors(username, [{
+  const usernameError = usernameApiError || validate(username, [{
     test: value => value.length > 0,
     message: 'Entert a username',
   }]);
-  const passwordError = hasErrors(password, passwordValidators);
-  const confirmError = hasErrors(confirm, [{
+  const passwordError = validate(password, passwordValidators);
+  const confirmError = validate(confirm, [{
     test: value => value === password,
     message: 'Does not match',
   }]);
