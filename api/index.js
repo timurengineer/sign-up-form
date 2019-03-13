@@ -4,13 +4,13 @@ const { User } = require('./db');
 const {
   validate,
   usernameValidators,
-  passwordValidators
+  passwordValidators,
 } = require('../src/api');
 
 const app = express();
 const port = 3001;
 
-app.use(express.json())
+app.use(express.json());
 
 app.post('/users', (req, res) => {
   const usernameError = validate(req.body.username, usernameValidators);
@@ -32,9 +32,9 @@ app.post('/users', (req, res) => {
           message: usernameError,
         },
         message: usernameError,
-      })
+      });
     }
-  
+
     if (passwordError) {
       return res.status(400).json({
         name: 'ValidationError',
@@ -42,10 +42,10 @@ app.post('/users', (req, res) => {
           message: passwordError,
         },
         message: passwordError,
-      })
+      });
     }
 
-    res.json(newUser);
+    return res.json(newUser);
   });
 });
 
