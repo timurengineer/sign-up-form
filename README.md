@@ -1,5 +1,7 @@
 # Sign Up Form
 
+![screenshot](./screenshot.png)
+
 ## Prerequisites
 
 - Node.js 10.15.1
