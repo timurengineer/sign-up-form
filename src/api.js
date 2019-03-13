@@ -67,3 +67,10 @@ export const usernameValidators = [{
   test: value => value.length > 0,
   message: 'Entert a username',
 }];
+
+export const createConfirmValidators = (password) => (
+  [{
+    test: value => value === password,
+    message: 'Does not match',
+  }]
+)

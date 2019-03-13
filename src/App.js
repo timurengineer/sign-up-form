@@ -6,6 +6,7 @@ import {
   validate,
   usernameValidators,
   passwordValidators,
+  createConfirmValidators,
 } from './api';
 
 import TextInput from './TextInput';
@@ -38,10 +39,7 @@ const App = () => {
 
   const usernameError = usernameApiError || validate(username, usernameValidators);
   const passwordError = validate(password, passwordValidators);
-  const confirmError = validate(confirm, [{
-    test: value => value === password,
-    message: 'Does not match',
-  }]);
+  const confirmError = validate(confirm, createConfirmValidators(password));
 
   const resetState = () => {
     setSubmitClicked(false);
@@ -54,6 +52,7 @@ const App = () => {
   const onUserCreateError = (error) => {
     if (error.name === 'ApiError' && error.body.name === 'ValidationError') {
       const { username: fieldError } = error.body.errors;
+
       setUsernameApiError(fieldError && fieldError.message);
     }
   };
