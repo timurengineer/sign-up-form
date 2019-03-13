@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { css } from 'emotion';
 
-import './App.css';
 import {
   createUser,
   validate,
@@ -13,6 +12,9 @@ import TextInput from './TextInput';
 import Button from './Button';
 
 const styles = {
+  app: {
+    color: '#036',
+  },
   title: {
     textAlign: 'center',
   },
@@ -75,7 +77,7 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div className={css(styles.app)}>
       <h1 className={css(styles.title)}>Sign Up</h1>
       <form onSubmit={onFormSubmit} className={css(styles.form)}>
         <TextInput
