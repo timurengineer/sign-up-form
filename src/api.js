@@ -8,11 +8,11 @@ const rejectApiError = (response) => {
         error.body = body;
 
         return Promise.reject(error);
-      })
+      });
   }
 
   return Promise.reject(new Error('Unknown API error'));
-}
+};
 
 const apiCall = (endpoint, options) => {
   const opts = {
@@ -24,7 +24,7 @@ const apiCall = (endpoint, options) => {
   };
 
   return fetch(endpoint, opts)
-    .then((response) => response.ok ? response : rejectApiError(response))
+    .then(response => (response.ok ? response : rejectApiError(response)))
     .then(response => response.json());
 };
 
@@ -66,4 +66,4 @@ export const passwordValidators = [
 export const usernameValidators = [{
   test: value => value.length > 0,
   message: 'Entert a username',
-}]
+}];

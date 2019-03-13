@@ -5,7 +5,7 @@ import {
   createUser,
   validate,
   usernameValidators,
-  passwordValidators
+  passwordValidators,
 } from './api';
 
 import TextInput from './TextInput';
@@ -27,7 +27,7 @@ const styles = {
   submitButton: {
     margin: '12px 0 0',
   },
-}
+};
 
 const App = () => {
   const [submitClicked, setSubmitClicked] = useState(false);
@@ -52,11 +52,11 @@ const App = () => {
   };
 
   const onUserCreateError = (error) => {
-    if (error.name === 'ApiError' && error.body.name === "ValidationError") {
-      const { username } = error.body.errors;
-      setUsernameApiError(username && username.message);
+    if (error.name === 'ApiError' && error.body.name === 'ValidationError') {
+      const { username: fieldError } = error.body.errors;
+      setUsernameApiError(fieldError && fieldError.message);
     }
-  }
+  };
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -74,7 +74,7 @@ const App = () => {
   const onUsernameChange = (event) => {
     setUsernameApiError('');
     setUsername(event.target.value);
-  }
+  };
 
   return (
     <div className={css(styles.app)}>
