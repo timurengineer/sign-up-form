@@ -15,7 +15,7 @@ app.post('/users', (req, res) => {
 
   user.save((error, newUser) => {
     if (error) {
-      return res.json(error);
+      return res.status(400).json(error);
     }
 
     res.json(newUser);

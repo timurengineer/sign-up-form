@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true });
 
@@ -10,7 +11,8 @@ db.once('open', () => console.log('DB connected!'));
 const userSchema = mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -21,5 +23,7 @@ const userSchema = mongoose.Schema({
     default: Date.now
   }
 });
+
+userSchema.plugin(uniqueValidator);
 
 module.exports.User = mongoose.model('User', userSchema);

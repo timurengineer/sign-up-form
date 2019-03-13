@@ -6,6 +6,7 @@
     "emotion": "^10.0.9",
     "express": "^4.16.4",
     "mongoose": "^5.4.19",
+    "mongoose-unique-validator": "^2.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
