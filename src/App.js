@@ -106,6 +106,7 @@ const App = () => {
     setUsername('');
     setPassword('');
     setConfirm('');
+    setUsernameApiError('');
   };
 
   const onUserCreateError = (error) => {
@@ -128,6 +129,11 @@ const App = () => {
       .catch(onUserCreateError);
   };
 
+  const onUsernameChange = (event) => {
+    setUsernameApiError('');
+    setUsername(event.target.value);
+  }
+
   return (
     <div className="App">
       <h1 className={css(title)}>Sign Up</h1>
@@ -137,7 +143,7 @@ const App = () => {
           id="username"
           label="Username"
           value={username}
-          onChange={event => setUsername(event.target.value)}
+          onChange={onUsernameChange}
           autoFocus
           errorMessage={submitClicked && usernameError}
         />
