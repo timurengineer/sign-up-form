@@ -47,6 +47,22 @@ const submitButton = {
   margin: '12px 0 0',
 };
 
+const rejectApiError = (response) => {
+  if (response.status === 400) {
+    return response.json()
+      .then((body) => {
+        const error = new Error(body.message && body.message);
+
+        error.name = 'ApiError';
+        error.body = body;
+
+        return Promise.reject(error);
+      })
+  }
+
+  return Promise.reject(new Error('Unknown API error'));
+}
+
 const apiCall = (endpoint, options) => {
   const opts = {
     headers: {
@@ -57,6 +73,7 @@ const apiCall = (endpoint, options) => {
   };
 
   return fetch(endpoint, opts)
+    .then((response) => response.ok ? response : rejectApiError(response))
     .then(response => response.json());
 };
 
