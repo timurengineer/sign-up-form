@@ -2,29 +2,15 @@ import React, { useState } from 'react';
 import { css } from 'emotion';
 
 import './App.css';
-import { createUser, validate } from './api';
+import {
+  createUser,
+  validate,
+  usernameValidators,
+  passwordValidators
+} from './api';
 
 import TextInput from './TextInput';
 import Button from './Button';
-
-const passwordValidators = [
-  {
-    test: value => value.length > 7,
-    message: 'Too short, must be 8 to 20 characters',
-  },
-  {
-    test: value => value.length < 21,
-    message: 'Too long, must be 8 to 20 characters',
-  },
-  {
-    test: value => /[a-zA-Z]/.test(value),
-    message: 'Must contain at least 1 letter',
-  },
-  {
-    test: value => /[0-9]/.test(value),
-    message: 'Must contain at least 1 number',
-  },
-];
 
 const title = {
   textAlign: 'center',
@@ -48,10 +34,7 @@ const App = () => {
   const [confirm, setConfirm] = useState('');
   const [usernameApiError, setUsernameApiError] = useState('');
 
-  const usernameError = usernameApiError || validate(username, [{
-    test: value => value.length > 0,
-    message: 'Entert a username',
-  }]);
+  const usernameError = usernameApiError || validate(username, usernameValidators);
   const passwordError = validate(password, passwordValidators);
   const confirmError = validate(confirm, [{
     test: value => value === password,

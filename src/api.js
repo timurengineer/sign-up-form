@@ -43,3 +43,27 @@ export const validate = (password, validators) => (
     return item.test(password) ? null : item.message;
   }, null)
 );
+
+export const passwordValidators = [
+  {
+    test: value => value.length > 7,
+    message: 'Too short, must be 8 to 20 characters',
+  },
+  {
+    test: value => value.length < 21,
+    message: 'Too long, must be 8 to 20 characters',
+  },
+  {
+    test: value => /[a-zA-Z]/.test(value),
+    message: 'Must contain at least 1 letter',
+  },
+  {
+    test: value => /[0-9]/.test(value),
+    message: 'Must contain at least 1 number',
+  },
+];
+
+export const usernameValidators = [{
+  test: value => value.length > 0,
+  message: 'Entert a username',
+}]
