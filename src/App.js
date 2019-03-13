@@ -89,8 +89,9 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [usernameApiError, setUsernameApiError] = useState('');
 
-  const usernameError = hasErrors(username, [{
+  const usernameError = usernameApiError || hasErrors(username, [{
     test: value => value.length > 0,
     message: 'Entert a username',
   }]);
@@ -107,6 +108,13 @@ const App = () => {
     setConfirm('');
   };
 
+  const onUserCreateError = (error) => {
+    if (error.name === 'ApiError' && error.body.name === "ValidationError") {
+      const { username } = error.body.errors;
+      setUsernameApiError(username && username.message);
+    }
+  }
+
   const onFormSubmit = (event) => {
     event.preventDefault();
     setSubmitClicked(true);
@@ -116,7 +124,8 @@ const App = () => {
     }
 
     return createUser({ username, password })
-      .then(resetState);
+      .then(resetState)
+      .catch(onUserCreateError);
   };
 
   return (
