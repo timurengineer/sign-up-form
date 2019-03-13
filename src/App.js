@@ -12,20 +12,20 @@ import {
 import TextInput from './TextInput';
 import Button from './Button';
 
-const title = {
-  textAlign: 'center',
-};
-
-const form = {
-  padding: '0 12px',
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  maxWidth: '500px',
-};
-
-const submitButton = {
-  margin: '12px 0 0',
-};
+const styles = {
+  title: {
+    textAlign: 'center',
+  },
+  form: {
+    padding: '0 12px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: '500px',
+  },
+  submitButton: {
+    margin: '12px 0 0',
+  },
+}
 
 const App = () => {
   const [submitClicked, setSubmitClicked] = useState(false);
@@ -76,8 +76,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className={css(title)}>Sign Up</h1>
-      <form onSubmit={onFormSubmit} className={css(form)}>
+      <h1 className={css(styles.title)}>Sign Up</h1>
+      <form onSubmit={onFormSubmit} className={css(styles.form)}>
         <TextInput
           name="username"
           id="username"
@@ -105,7 +105,7 @@ const App = () => {
           onChange={event => setConfirm(event.target.value)}
           errorMessage={submitClicked && confirmError}
         />
-        <Button className={css(submitButton)}>
+        <Button className={css(styles.submitButton)}>
           Continue
         </Button>
       </form>
