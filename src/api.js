@@ -68,9 +68,9 @@ export const usernameValidators = [{
   message: 'Entert a username',
 }];
 
-export const createConfirmValidators = (password) => (
+export const createConfirmValidators = password => (
   [{
     test: value => value === password,
     message: 'Does not match',
   }]
-)
+);
