@@ -13,12 +13,18 @@ git clone https://github.com/timurengineer/sign-up-form.git
 cd sign-up-form
 npm install
 ```
+
+Make sure `mongod` is running
+
 Start API server
+
 ```
 npm run api-dev
 ```
-Start Front End Application
+Start Front End Application (in a separate terminal)
+
 ```
 npm start
-open localhost:3000 in your browser
 ```
+
+Open localhost:3000 in your browser
