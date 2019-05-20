@@ -7,7 +7,7 @@ export const button = {
   lineHeight: 2.9,
   textAlign: "center",
   borderRadius: "3px",
-  backgroundColor: "#0F6F53",
+  backgroundColor: "#036",
   color: "#FFFFFF",
   border: "1px solid #036",
   outline: "none",
